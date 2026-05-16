@@ -1,6 +1,6 @@
 
-<H3>ENTER YOUR NAME</H3>
-<H3>ENTER YOUR REGISTER NO.</H3>
+<H3>ENTER YOUR NAME : Nisha d</H3>
+<H3>ENTER YOUR REGISTER NO. 212223230143</H3>
 <H3>EX. NO.4</H3>
 <H3>DATE:</H3>
 <H1 ALIGN =CENTER>Implementation of MLP with Backpropagation for Multiclassification</H1>
@@ -117,10 +117,48 @@ Normalize our dataset.
 <H3>Program:</H3> 
 
 Insert your code here
+```
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.metrics import confusion_matrix, classification_report
+
+iris = load_iris()
+
+X = iris.data
+y = iris.target
+
+X_train, X_test, y_train, y_test = train_test_split(
+    X,
+    y,
+    test_size=0.2,
+    random_state=42
+)
+
+model = DecisionTreeClassifier()
+
+model.fit(X_train, y_train)
+
+y_pred = model.predict(X_test)
+
+flower_list = [str(iris.target_names[i]) for i in y_pred]
+
+print("Predicted Flower Names:\n")
+print(flower_list)
+
+print("\nConfusion Matrix:\n")
+print(confusion_matrix(y_test, y_pred))
+
+print("\nClassification Report:\n")
+print(classification_report(y_test, y_pred, target_names=iris.target_names))
+
+```
 
 <H3>Output:</H3>
 
-Show your results here
+<img width="1249" height="487" alt="image" src="https://github.com/user-attachments/assets/0d66381e-621d-49e6-a781-89af4ebde898" />
+
 
 <H3>Result:</H3>
+
 Thus, MLP is implemented for multi-classification using python.
