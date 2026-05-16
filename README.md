@@ -140,22 +140,30 @@ model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
 
-flower_list = [str(iris.target_names[i]) for i in y_pred]
+predicted_flowers = [str(iris.target_names[i]) for i in y_pred]
+actual_flowers = [str(iris.target_names[i]) for i in y_test]
 
 print("Predicted Flower Names:\n")
-print(flower_list)
+print(predicted_flowers)
+
+print("\nActual Flower Names:\n")
+print(actual_flowers)
 
 print("\nConfusion Matrix:\n")
 print(confusion_matrix(y_test, y_pred))
 
 print("\nClassification Report:\n")
-print(classification_report(y_test, y_pred, target_names=iris.target_names))
+print(classification_report(
+    y_test,
+    y_pred,
+    target_names=iris.target_names
+))
 
 ```
 
 <H3>Output:</H3>
 
-<img width="1249" height="487" alt="image" src="https://github.com/user-attachments/assets/0d66381e-621d-49e6-a781-89af4ebde898" />
+<img width="1134" height="567" alt="image" src="https://github.com/user-attachments/assets/b50dff07-be4a-44e7-afdd-8229645e6c7f" />
 
 
 <H3>Result:</H3>
