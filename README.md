@@ -119,23 +119,59 @@ Normalize our dataset.
 ```
 from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.neural_network import MLPClassifier
 from sklearn.metrics import confusion_matrix, classification_report
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
 
+# Load Dataset
 iris = load_iris()
 
 X = iris.data
 y = iris.target
 
+df = pd.DataFrame(X, columns=iris.feature_names)
+
+df['target'] = y
+
+# Head
+print("First 5 Rows:\n")
+print(df.head())
+
+# Tail
+print("\nLast 5 Rows:\n")
+print(df.tail())
+
+# Info
+print("\nDataset Information:\n")
+print(df.info())
+
+# Describe
+print("\nStatistical Summary:\n")
+print(df.describe())
+
+# Missing Values
+print("\nMissing Values:\n")
+print(df.isnull().sum())
+
+# Feature Scaling
+scaler = StandardScaler()
+
+X_scaled = scaler.fit_transform(X)
+
 X_train, X_test, y_train, y_test = train_test_split(
-    X,
+    X_scaled,
     y,
     test_size=0.2,
     random_state=42
 )
 
-model = DecisionTreeClassifier()
-
+# Create MLP Classifier
+model = MLPClassifier(
+    hidden_layer_sizes=(10,),
+    max_iter=1000,
+    random_state=42
+)
 model.fit(X_train, y_train)
 
 y_pred = model.predict(X_test)
@@ -143,27 +179,37 @@ y_pred = model.predict(X_test)
 predicted_flowers = [str(iris.target_names[i]) for i in y_pred]
 actual_flowers = [str(iris.target_names[i]) for i in y_test]
 
-print("Predicted Flower Names:\n")
+# Predicted Output
+print("\nPredicted Flower Names:\n")
 print(predicted_flowers)
 
+# Actual Output
 print("\nActual Flower Names:\n")
 print(actual_flowers)
 
+# Confusion Matrix
 print("\nConfusion Matrix:\n")
 print(confusion_matrix(y_test, y_pred))
 
+# Classification Report
 print("\nClassification Report:\n")
 print(classification_report(
     y_test,
     y_pred,
     target_names=iris.target_names
 ))
-
 ```
 
 <H3>Output:</H3>
 
-<img width="1134" height="567" alt="image" src="https://github.com/user-attachments/assets/b50dff07-be4a-44e7-afdd-8229645e6c7f" />
+<img width="772" height="524" alt="image" src="https://github.com/user-attachments/assets/291992e2-ec6a-4bab-b947-5557ce20afaa" />
+
+
+<img width="659" height="598" alt="image" src="https://github.com/user-attachments/assets/2e14f1b4-1473-4d08-a169-439e7115ec02" />
+
+
+
+<img width="965" height="566" alt="image" src="https://github.com/user-attachments/assets/622c9f94-9ca3-4323-a45c-58f520d14271" />
 
 
 <H3>Result:</H3>
